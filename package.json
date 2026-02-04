@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "esbuild src/*.ts --outdir=dist --bundle",
+    "watch": "esbuild src/*.ts --outdir=dist --bundle --watch"
+  },
+  "dependencies": {
+    "@types/firefox-webext-browser": "^143.0.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.2"
+  }
+}
