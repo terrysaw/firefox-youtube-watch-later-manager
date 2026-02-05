@@ -28,3 +28,54 @@ export function extractRemoveButton() : Element | undefined
 {
     return document.querySelector("ytd-popup-container>tp-yt-iron-dropdown>div>ytd-menu-popup-renderer>tp-yt-paper-listbox")?.children[2]
 }
+
+export function extractPlayer() : Element | null
+{
+    return document.querySelector("video")
+}
+
+export function extractPlayerMenuButton() : HTMLButtonElement | null
+{
+    return document.querySelector("yt-button-shape#button-shape>button") as HTMLButtonElement | null
+}
+
+export function extractPlayerSaveButton() : HTMLButtonElement | null
+{
+    let topRow : HTMLDivElement | null = document.querySelector("div#top-row")
+    if (topRow)
+    {
+        let saveButton : HTMLButtonElement | null = topRow.querySelector("button[aria-label^=\"Save\"]")
+        if (saveButton)
+        {
+            return saveButton
+        }
+
+        extractPlayerMoreButton()?.click()
+        return document.querySelector("button[aria-label^=\"Save\"]")
+    }
+
+    return null;
+}
+
+export function extractPlayerMoreButton() : HTMLButtonElement | null
+{
+    let topRow : HTMLDivElement | null = document.querySelector("div#top-row")
+    if (topRow)
+    {
+        return topRow?.querySelector("button[aria-label^=\"More\"]")
+    }
+
+    return null;
+}
+
+export function extractPlayerWatchLaterButton() : HTMLButtonElement | null
+{
+    return document.querySelector("yt-list-item-view-model[aria-label^=\"Watch later\"]")
+}
+
+export function extractInWatchLater(watchLaterButton : HTMLElement) : boolean
+{
+    // This specific path element with this specific vector data is used to indicate whether a video is in the Watch Later playlist
+    let inPlaylistFlag : HTMLElement | null = watchLaterButton.querySelector("path[d=\"M19 2H5a2 2 0 00-2 2v16.887c0 1.266 1.382 2.048 2.469 1.399L12 18.366l6.531 3.919c1.087.652 2.469-.131 2.469-1.397V4a2 2 0 00-2-2Z\"]")
+    return inPlaylistFlag !== null
+}

@@ -1,35 +1,29 @@
 import * as Extractor from "./youtubeExtractor"
+import * as Cleaners from "./watchLaterCleaners"
 
 document.addEventListener('yt-navigate-finish', () => {
     console.log('YouTube navigation finished');
     if (window.location.href.endsWith("playlist?list=WL"))
     {
-        let playlist_videos : HTMLElement | null = Extractor.extractWatchLaterPagePlaylist()
-        if (playlist_videos)
+        Cleaners.cleanWatchLaterPage()
+    }
+    else if (window.location.href.includes("/watch") && window.location.href.includes("list=WL"))
+    {
+        let player : HTMLVideoElement | null = Extractor.extractPlayer() as HTMLVideoElement
+        if (player)
         {
-            let videos : HTMLCollection = playlist_videos.children
-            console.log(`Video count: ${videos.length}`)
-            for (var i = 0; i < videos.length; i++)
-            {
-                let video = videos[i];
-                let button : HTMLElement | null = Extractor.extractOptionsButton(video)
-                //button?.click()
-                let percent : number = Extractor.extractWatchedPercent(video)
-                console.log(`Watched percent: ${percent}`)
-                if (percent > 80)
-                {
-                    button?.click()
-                    setTimeout(() =>
-                    {
-                        let removeButton : Element | undefined = Extractor.extractRemoveButton();
-                        (removeButton as HTMLButtonElement)?.click()
-                    }, 10)
+            let triggered = false;
+  
+            player.addEventListener('timeupdate', () => {
+                if (triggered) return;
+
+                const percent = (player.currentTime / player.duration) * 100;
+
+                if (percent >= 50) {
+                  triggered = true;
+                  Cleaners.cleanPlayingVideo()
                 }
-            }
-        }
-        else
-        {
-            alert("Couldn't find playlsit videos")
+            });
         }
     }
 })
