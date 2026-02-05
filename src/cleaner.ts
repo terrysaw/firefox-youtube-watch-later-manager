@@ -1,4 +1,4 @@
-import * as Extractor from "./youtubeExtractor"
+import * as Extractor from "./extractor"
 
 export function cleanWatchLaterPage(percentCheckOnly : boolean, percentThreshold : number) : void
 {

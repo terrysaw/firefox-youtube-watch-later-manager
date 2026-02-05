@@ -1,5 +1,5 @@
-import * as Extractor from "./youtubeExtractor"
-import * as Cleaners from "./watchLaterCleaners"
+import * as Extractor from "./extractor"
+import * as Cleaners from "./cleaner"
 import { defaultsMap as options } from "./options"
 
 function getOption(option: string) : any
