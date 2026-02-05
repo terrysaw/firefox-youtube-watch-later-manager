@@ -1,9 +1,9 @@
-export function extractWatchLaterPagePlaylist() : HTMLElement | null
+export function extractPlaylist() : HTMLElement | null
 {
         return document.querySelector("ytd-playlist-video-list-renderer>#contents")
 }
 
-export function extractWatchedPercent(video : Element | null) : number
+export function extractPlaylistWatchedPercent(video : HTMLElement | null) : number
 {
     let watchedPercent = 0
     let playbackNode : HTMLElement | null | undefined = video?.querySelector("#progress")
@@ -14,22 +14,23 @@ export function extractWatchedPercent(video : Element | null) : number
     return watchedPercent
 }
 
-export function extractOptionsButton(video : Element | null) : HTMLElement | null
+export function extractPlaylistActionButton(video : HTMLElement | null) : HTMLElement | null
 {
     if (!video)
     {
         return null;
     }
 
-    return video?.querySelector("#menu>ytd-menu-renderer>yt-icon-button")
+    return video?.querySelector("button[aria-label^=\"Action\"]")
 }
 
-export function extractRemoveButton() : Element | undefined
+export function extractPlaylistRemoveButton() : HTMLElement | null
 {
-    return document.querySelector("ytd-popup-container>tp-yt-iron-dropdown>div>ytd-menu-popup-renderer>tp-yt-paper-listbox")?.children[2]
+    // The remove from Watch Later button doesn't actually have a button with an aria-label, so we will have to get it this way
+    return document.querySelector("ytd-popup-container>tp-yt-iron-dropdown>div>ytd-menu-popup-renderer>tp-yt-paper-listbox")?.children[2] as HTMLElement | null
 }
 
-export function extractPlayer() : Element | null
+export function extractPlayer() : HTMLVideoElement | null
 {
     return document.querySelector("video")
 }

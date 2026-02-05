@@ -19,7 +19,7 @@ document.addEventListener('yt-navigate-finish', () => {
 
                 const percent = (player.currentTime / player.duration) * 100;
 
-                if (percent >= 50) {
+                if (percent >= 1) {
                   triggered = true;
                   Cleaners.cleanPlayingVideo()
                 }
