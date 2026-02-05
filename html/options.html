@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <form>
+            <label>Clean Watch Later when playlist view is open:</label> 
+            <br>
+            <input type="checkbox" id="playlistEnabled" name="playlistEnabled"/>
+            <br>
+            <label>Clean video from Watch Later when watching:</label> 
+            <br>
+            <input type="checkbox" id="playerEnabled" name="playerEnabled"/>
+            <br>
+            <label>Clean video from Watch Later when watching only if playlist is open below video:</label> 
+            <br>
+            <input type="checkbox" id="openPlaylistOnly" name="openPlaylistOnly"/>
+            <br>
+            <label>Clean video only when watched a certain percent:</label> 
+            <br>
+            <input type="checkbox" id="percentCheckOnly" name="percentCheckOnly"/>
+            <br>
+            <label>Percent of video to be watched to be removed:</label> 
+            <br>
+            <input type="number" min="1" max="100" id="percentThreshold" name="percentThreshold"/>%
+            <br>
+            <br>
+            <button id="save" type="submit">Save</button>
+            <button id="reset" type="submit">Restore defaults</button>
+        </form>
+
+        <script src="../dist/options.js"></script>
+    </body>
+</html>
+

@@ -1,20 +1,30 @@
 {
-	"manifest_version": 2,
-	"name": "Youtube Manage Watch Later",
-	"version": "0.1",
-	"homepage_url": "https://github.com/terrysaw/firefox-youtube-watch-later-manager",
-	"description": "Helps you manage your Youtube watch later playlist",
-	"icons": {
-		"48": "icons/watchlater-48.png"
-	},
+    "manifest_version": 2,
+    "name": "Youtube Manage Watch Later",
+    "version": "0.1",
+    "homepage_url": "https://github.com/terrysaw/firefox-youtube-watch-later-manager",
+    "description": "Helps you manage your Youtube watch later playlist",
+    "icons": {
+        "48": "icons/watchlater-48.png"
+    },
 
-	"permissions": ["activeTab"],
+"permissions": ["activeTab", "storage"],
 
-	"content_scripts": [
-		{
-			"matches": ["*://*.youtube.com/*"],
-			"js": ["dist/watchlater.js"],
-			"run_at": "document_idle"
-		}
-	]
+    "options_ui": {
+        "page": "html/options.html"
+    },
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "@watch-later-manager"
+        }
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["*://*.youtube.com/*"],
+            "js": ["dist/watchlater.js"],
+            "run_at": "document_idle"
+        }
+    ]
 }
