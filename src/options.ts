@@ -1,4 +1,4 @@
-const defaultsMap : Object = {
+export const defaultsMap : Object = {
     playlistEnabled: true,
     playerEnabled: true,
     openPlaylistOnly: false,

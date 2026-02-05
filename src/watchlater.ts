@@ -1,13 +1,29 @@
 import * as Extractor from "./youtubeExtractor"
 import * as Cleaners from "./watchLaterCleaners"
+import { defaultsMap as options } from "./options"
+
+function getOption(option: string) : any
+{
+    return (options as any)[option]
+}
+
+function loadSettings()
+{
+    let getting = browser.storage.sync.get(Object.keys(options))
+    getting.then((results) => {
+        for (let key in results)
+        {
+            (options as any)[key] = results[key]
+        }
+    })
+}
 
 document.addEventListener('yt-navigate-finish', () => {
-    console.log('YouTube navigation finished');
-    if (window.location.href.endsWith("playlist?list=WL"))
+    if (getOption("playlistEnabled") && window.location.href.endsWith("playlist?list=WL"))
     {
-        Cleaners.cleanWatchLaterPage()
+        Cleaners.cleanWatchLaterPage(getOption("percentCheckOnly"), getOption("percentThreshold"))
     }
-    else if (window.location.href.includes("/watch") && window.location.href.includes("list=WL"))
+    else if (getOption("playerEnabled") && window.location.href.includes("/watch") && (!getOption("openPlaylistOnly") || window.location.href.includes("list=WL")))
     {
         let player : HTMLVideoElement | null = Extractor.extractPlayer() as HTMLVideoElement
         if (player)
@@ -27,3 +43,5 @@ document.addEventListener('yt-navigate-finish', () => {
         }
     }
 })
+
+loadSettings()

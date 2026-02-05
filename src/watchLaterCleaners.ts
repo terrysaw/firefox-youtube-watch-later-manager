@@ -1,6 +1,6 @@
 import * as Extractor from "./youtubeExtractor"
 
-export function cleanWatchLaterPage() : void
+export function cleanWatchLaterPage(percentCheckOnly : boolean, percentThreshold : number) : void
 {
     let playlist_videos : HTMLElement | null = Extractor.extractPlaylist()
     if (playlist_videos)
@@ -10,29 +10,27 @@ export function cleanWatchLaterPage() : void
         {
             let video : HTMLElement = videos[i] as HTMLElement;
             let button : HTMLElement | null = Extractor.extractPlaylistActionButton(video)
-            let percent : number = Extractor.extractPlaylistWatchedPercent(video)
-            if (percent > 80)
-            {
-                if (button === null || typeof(button) === "undefined")
+            setTimeout(() => {
+                let percent : number = Extractor.extractPlaylistWatchedPercent(video)
+                if (percent > percentThreshold || (!percentCheckOnly && percent > 0))
                 {
-                    return
-                }
+                    if (button === null || typeof(button) === "undefined")
+                    {
+                        return
+                    }
 
-                button.click()
+                    button.click()
 
-                let removeButton : HTMLButtonElement | undefined = undefined
-                new Promise(() => {
+                    let removeButton : HTMLButtonElement | undefined = undefined
                     setTimeout(() => {
                         removeButton = Extractor.extractPlaylistRemoveButton() as HTMLButtonElement | undefined
-                    }, 10)
-                })
-                .then(() => {
-                  if (typeof(removeButton) !== "undefined")
-                  {
-                      removeButton.click()
-                  }
-                })
-            }
+                          if (typeof(removeButton) !== "undefined")
+                          {
+                              removeButton.click()
+                          }
+                    }, 200)
+                }
+            }, 500 * i);
         }
     }
 }
@@ -40,7 +38,7 @@ export function cleanWatchLaterPage() : void
 
 export function cleanPlayingVideo() : void
 {
-    (document.querySelector("ytd-popup-container") as HTMLElement).style.setProperty("opacity", "0", "important")
+    (document.querySelector("ytd-popup-container") as HTMLElement).style.setProperty("opacity", "0%", "!important")
     let saveButton : HTMLButtonElement | null = Extractor.extractPlayerSaveButton()
 
     if (saveButton)

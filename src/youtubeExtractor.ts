@@ -52,6 +52,9 @@ export function extractPlayerSaveButton() : HTMLButtonElement | null
         }
 
         extractPlayerMoreButton()?.click()
+        new Promise(() => {
+            setTimeout(()=>{}, 500)
+        })
         return document.querySelector("button[aria-label^=\"Save\"]")
     }
 
