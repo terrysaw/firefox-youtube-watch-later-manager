@@ -16,7 +16,8 @@
 
     "browser_specific_settings": {
         "gecko": {
-            "id": "@watch-later-manager"
+            "id": "@watch-later-manager",
+            "data_collection_permissions": {}
         }
     },
 
