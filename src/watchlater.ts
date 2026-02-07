@@ -60,7 +60,7 @@ document.addEventListener('yt-navigate-finish', () => {
 
                     const percent = (player.currentTime / player.duration) * 100;
 
-                    if (percent >= 1) {
+                    if (percent >= getOption("percentThreshold")) {
                       triggered = true;
                       let entity : Entity = {
                           id: 0,
@@ -88,7 +88,7 @@ document.addEventListener('yt-navigate-finish', () => {
 
 loadSettings()
 
-let stateMachine = new StateMachine(50)
+let stateMachine = new StateMachine(100)
 
 /** Playlist states */
 stateMachine.addState("PLAYLIST_NEW", (entity, stateMachine) => {
