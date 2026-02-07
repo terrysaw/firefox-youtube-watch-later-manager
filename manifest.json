@@ -18,7 +18,7 @@
         "gecko": {
             "id": "@watch-later-manager",
             "data_collection_permissions": {
-                "required": [],
+                "required": ["none"],
                 "optional": []
             }
         }
