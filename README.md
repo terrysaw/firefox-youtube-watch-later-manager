@@ -1,5 +1,5 @@
 # Youtube Watch Later Manager
-A firefox addon to help manage your Youtube watch later playlist better.
+A Firefox addon to help manage your Youtube watch later playlist better.
 
 This addon will automatically remove videos from your watch later playlist either from viewing the playlist or as you watch videos.
 
