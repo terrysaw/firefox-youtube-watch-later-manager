@@ -14,10 +14,12 @@ export class StateMachine
     stateMap: Map<String,State> = new Map()
     retryCount: number = 0
     maxRetry: number = 25
+    debug: boolean
 
-    constructor(timeout: number = 500)
+    constructor(timeout: number = 500, debug: boolean = false)
     {
         this.timeout = timeout
+        this.debug = debug
     }
 
     start()
@@ -39,6 +41,12 @@ export class StateMachine
             if (stateCallable && typeof(stateCallable) !== "undefined")
             {
                 let newState : string = stateCallable(entity, this)
+
+                if (this.debug)
+                {
+                    console.log(`Next state: ${newState}`)
+                }
+
                 if (entity.state !== newState)
                 {
                     entity.state = newState

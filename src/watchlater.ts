@@ -223,6 +223,7 @@ browser.storage.sync.get(Object.keys(options))
 .then((item) => {
     options = item as Options
     setup()
+    stateMachine.debug = getOption("debug")
     stateMachine.start()
 })
 .catch((error) => {

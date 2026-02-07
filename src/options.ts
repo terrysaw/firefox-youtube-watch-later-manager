@@ -3,7 +3,8 @@ export type Options = {
     playerEnabled: boolean,
     openPlaylistOnly: boolean,
     percentCheckOnly: boolean,
-    percentThreshold: number
+    percentThreshold: number,
+    debug: boolean
 }
 
 export const defaultsMap : Options = {
@@ -12,6 +13,7 @@ export const defaultsMap : Options = {
     openPlaylistOnly: false,
     percentCheckOnly: true,
     percentThreshold: 50,
+    debug: false
 }
 
 export type OptionsKey = keyof typeof defaultsMap
