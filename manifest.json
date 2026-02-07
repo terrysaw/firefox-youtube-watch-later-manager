@@ -5,7 +5,7 @@
     "homepage_url": "https://github.com/terrysaw/firefox-youtube-watch-later-manager",
     "description": "Helps you manage your Youtube watch later playlist",
     "icons": {
-        "48": "icons/watchlater-48.png"
+        "48": "icons/watchlater-manager.svg"
     },
 
 "permissions": ["activeTab", "storage"],
