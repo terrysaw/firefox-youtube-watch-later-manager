@@ -181,11 +181,16 @@ function setup()
         return entity.state
     })
 
-    stateMachine.addState("PLAYER_REMOVE_BUTTON", (entity, _stateMachine) => {
+    stateMachine.addState("PLAYER_REMOVE_BUTTON", (entity, stateMachine) => {
         let watchLaterButton : HTMLButtonElement | null = document.querySelector("yt-list-item-view-model[aria-label^=\"Watch later\"]")
-
         if (watchLaterButton)
         {
+            let ariaLabel = watchLaterButton.getAttribute("aria-label")
+            if (ariaLabel && !ariaLabel.includes("Selected"))
+            {
+                return "PLAYER_REVEAL_POPUP"
+            }
+
             watchLaterButton.click()
             
             return "PLAYER_REVEAL_POPUP"
@@ -195,7 +200,19 @@ function setup()
     })
 
     stateMachine.addState("PLAYER_REVEAL_POPUP", (_entity, stateMachine) => {
-        (document.querySelector("ytd-popup-container") as HTMLElement)?.style.setProperty("opacity", "100%", "important")
+        setTimeout(() => {
+            document.dispatchEvent(new KeyboardEvent(
+                    'keydown', 
+                    {
+                        key: 'Escape',
+                        keyCode: 27,
+                        which: 27,
+                        bubbles: true,
+                        cancelable: true
+                    }
+            ));
+            (document.querySelector("ytd-popup-container") as HTMLElement)?.style.setProperty("opacity", "100%", "important")
+        }, 500)
 
         stateMachine.next()
         return ""

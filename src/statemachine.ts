@@ -13,6 +13,7 @@ export class StateMachine
     interval: number = -1
     stateMap: Map<String,State> = new Map()
     retryCount: number = 0
+    maxRetry: number = 25
 
     constructor(timeout: number = 500)
     {
@@ -46,6 +47,14 @@ export class StateMachine
                 else
                 {
                     this.retryCount += 1
+                }
+
+                if (this.retryCount >= this.maxRetry)
+                {
+                    this.next()
+                    this.retryCount = 0
+                    alert("ERROR: Too many retries trying to remove from watch later! Please contact the Watch Later Manager author if this persists")
+                    return ""
                 }
             }
             else
