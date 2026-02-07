@@ -1,4 +1,12 @@
-export const defaultsMap : Object = {
+export type Options = {
+    playlistEnabled: boolean,
+    playerEnabled: boolean,
+    openPlaylistOnly: boolean,
+    percentCheckOnly: boolean,
+    percentThreshold: number
+}
+
+export const defaultsMap : Options = {
     playlistEnabled: true,
     playerEnabled: true,
     openPlaylistOnly: false,
@@ -6,7 +14,11 @@ export const defaultsMap : Object = {
     percentThreshold: 50,
 }
 
-function getValue(selector: string) : any
+export type OptionsKey = keyof typeof defaultsMap
+
+export let options : Options
+
+function getValue(selector: string) : string | boolean
 {
     let el : Element | null = document.querySelector(selector)
     if (el instanceof HTMLInputElement)
@@ -18,6 +30,8 @@ function getValue(selector: string) : any
 
         return el.value
     }
+
+    return ""
 }
 
 function setValue(selector: string, value: any) : void
@@ -42,8 +56,8 @@ function saveOptions(e: SubmitEvent) : void
     let submitter = e.submitter
     if (submitter?.id === "save")
     {
-        let toSave = {}
-        for (let key in defaultsMap)
+        let toSave : Options = defaultsMap
+        for (let key in toSave)
         {
             (toSave as any)[key] = getValue(`#${key}`)
         }
@@ -63,7 +77,7 @@ function restoreDefaults() : void
         (toSave as any)[key] = (defaultsMap as any)[key]
     }
     browser.storage.sync.set(toSave)
-    .then(() => restoreOptions())
+    .then(restoreOptions)
 }
 
 function restoreOptions() : void
