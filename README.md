@@ -1,3 +1,5 @@
+[Get the addon here!](https://addons.mozilla.org/en-US/firefox/addon/youtube-manage-watch-later/)
+
 # Youtube Watch Later Manager
 A Firefox addon to help manage your Youtube watch later playlist better.
 
