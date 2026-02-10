@@ -9,6 +9,10 @@ type PlaylistVideoEntity = {
     videoElement: HTMLElement
 }
 
+type PlayerEntity = {
+    moreRetryCount: number
+}
+
 function getOption(option: OptionsKey) : any
 {
     return options[option]
@@ -172,8 +176,16 @@ function setup()
             
             if (moreButton)
             {
-                moreButton.click()
-                
+                moreButton.click();
+
+                let data : PlayerEntity = entity.data as PlayerEntity
+                data.moreRetryCount += 1
+
+                if (data.moreRetryCount >= 5)
+                {
+                    return "PLAYER_REVEAL_POPUP"
+                }
+
                 return "PLAYER_TRY_SAVE"
             }
         }
