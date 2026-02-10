@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Youtube Manage Watch Later",
-    "version": "1.0",
+    "version": "1.1",
     "homepage_url": "https://github.com/terrysaw/firefox-youtube-watch-later-manager",
     "description": "Helps you manage your Youtube watch later playlist",
     "icons": {
